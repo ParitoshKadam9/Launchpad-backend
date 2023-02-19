@@ -1,12 +1,22 @@
-const mongoose = require("mongoose");
-const mongoURI = "mongodb+srv://Manan:Ecell@manan.lggpayd.mongodb.net/test/launchpad";
+const mongoose = require('mongoose')
 
-const connectToMongo = ()=>{
-    mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },()=>{
-        console.log("connected to mongo db!");
-    });
-};
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(
+          "mongodb+srv://Paritosh:12345@launchpad23.cewfzia.mongodb.net/?retryWrites=true&w=majority",
+          {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+          }
+        );
 
-module.exports = connectToMongo;
+        console.log("mongo connected");
+    }
+    catch (err) {
+        console.log(err)
+        process.exit()
+    }
+}
+module.exports = connectDB;
 
 

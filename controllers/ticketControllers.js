@@ -16,6 +16,32 @@ const buyTicket = expressAsyncHandler(async (req, res) => {
     }
 });
 
+const addTicket = async (req, res) => {
+    const { name, amount, time, location, about, id } = req.body;
+    try {
+        const ticket = await Ticket.create(
+{name, time, amount, location, id, about
+            }
+        )
+        if (ticket) {
+            res.status(201).json(
+                {
+                    _id: ticket._id,
+                    name: ticket.name,
+                    amount: ticket.amount
+               }
+           )
+        }
+        else {
+            res.status(400)
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }
+
+}
+
 const ticketBool = expressAsyncHandler(async (req, res) => {
     try {
         // get ticket id and user id from the qr code from the openCV scanner scans
@@ -26,4 +52,4 @@ const ticketBool = expressAsyncHandler(async (req, res) => {
     }
 })
 
-module.exports = {buyTicket, ticketBool}
+module.exports = {buyTicket, ticketBool, addTicket}

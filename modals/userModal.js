@@ -17,12 +17,12 @@ const Usermodel = mongoose.Schema(
         city: {
             type: String, required: true
         },
-        tickets: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Ticket"
-            }
-        ]
+        // tickets: [
+        //     {
+        //         type: mongoose.Schema.Types.ObjectId,
+        //         ref: "Ticket"
+        //     }
+        // ]
     }
 );
 

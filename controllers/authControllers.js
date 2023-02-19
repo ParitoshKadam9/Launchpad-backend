@@ -15,7 +15,7 @@ const createUser = async (req, res) => {
         if (user) {
             return res.status(400).send({ error: "Sorry, a user with this email already exists!!", status: false });
         }
-        const salt = await bcryptjs.genSalt(20);
+        const salt = await bcryptjs.genSalt(10);
         const securedPassword = await bcryptjs.hash(req.body.password, salt);
         user = await User.create(
             {
@@ -26,6 +26,17 @@ const createUser = async (req, res) => {
                 city: req.body.city,
             }
         );
+
+        if (user) {
+            res.status(201).json({
+              name: user.name,
+              email: user.email,
+              college: user.college,
+              city: user.city,
+            });
+        } else {
+            res.status(400)
+        }
         const authToken = jwt.sign(req.body.email, JWTSecret);
         status = true;
         // return res.json({ status: status, authToken: authToken });
