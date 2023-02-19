@@ -17,6 +17,7 @@ const createUser = async (req, res) => {
         }
         const salt = await bcryptjs.genSalt(10);
         const securedPassword = await bcryptjs.hash(req.body.password, salt);
+        
         user = await User.create(
             {
                 name: req.body.name,
@@ -27,19 +28,21 @@ const createUser = async (req, res) => {
             }
         );
 
+
         if (user) {
+            // const authToken = jwt.sign(req.body.email, JWTSecret);
+            // status = true;
             res.status(201).json({
               name: user.name,
               email: user.email,
               college: user.college,
               city: user.city,
+            //   status: status,
+            //   authToken: authToken,
             });
         } else {
             res.status(400)
         }
-        const authToken = jwt.sign(req.body.email, JWTSecret);
-        status = true;
-        // return res.json({ status: status, authToken: authToken });
     } catch (err) {
         let status = false;
         console.log(err);

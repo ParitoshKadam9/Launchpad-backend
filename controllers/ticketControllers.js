@@ -1,18 +1,34 @@
 const expressAsyncHandler = require("express-async-handler");
 const Ticket = require("../modals/TicketModal");
+const User = require("../modals/userModal")
 
 const buyTicket = expressAsyncHandler(async (req, res) => {
-    try {
-        // call razorpay (create post req for an order)
-        // recieve a boolean in response, bool = payment true or false
+    let { email, ticketname, verif } = req.body;
+    if (verif) {
 
-        // if true, make the push the ticket Id (get it from req.query.ticketId)
-        // to the user id, get it from query as well
-        // 
+        let ticketId = await User.findOne({ _id: ticketname })
+        
+        if (ticketId) {
+            return res.send("ticket already bought")
+
+        }
+        else {
+            
+            let ticket = await Ticket.findOne({ _id: ticketname })
+            console.log(ticket)
+            await User.updateOne(
+                { email: email },
+                {$push: {tickets : {$each :[ticket]}}}
+            )
+            
+            return res.status(201).json({
+                name: ticket.name,
+                email: email
+            })
+        }
     }
-    catch (err) {
-        res.status(400);
-        throw new Error(err.message);
+    else {
+        res.status(400)
     }
 });
 
