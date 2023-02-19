@@ -6,4 +6,5 @@ router.route("/buy").post(buyTicket)
 router.route("/attendence/").post(ticketBool)
 router.route("/addTicket").post(addTicket)
 
+
 module.exports = router;

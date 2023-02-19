@@ -6,26 +6,17 @@ const buyTicket = expressAsyncHandler(async (req, res) => {
     let { email, ticketname, verif } = req.body;
     if (verif) {
 
-        let ticketId = await User.findOne({ _id: ticketname })
-        
-        if (ticketId) {
-            return res.send("ticket already bought")
+        let ticket = await Ticket.findOne({ _id: ticketname })
+        console.log(ticket)
+        await User.updateOne(
+            { email: email },
+            {$push: {tickets : {$each :[ticket]}}}
+        )
 
-        }
-        else {
-            
-            let ticket = await Ticket.findOne({ _id: ticketname })
-            console.log(ticket)
-            await User.updateOne(
-                { email: email },
-                {$push: {tickets : {$each :[ticket]}}}
-            )
-            
-            return res.status(201).json({
-                name: ticket.name,
-                email: email
-            })
-        }
+        return res.status(201).json({
+            name: ticket.name,
+            email: email
+        })
     }
     else {
         res.status(400)
