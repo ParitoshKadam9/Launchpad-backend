@@ -1,4 +1,3 @@
-const expressAsyncHandler = require("express-async-handler");
 const User = require("../modals/userModal");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -31,17 +30,17 @@ const createUser = async (req, res) => {
 
         if (user) {
             // const authToken = jwt.sign(req.body.email, JWTSecret);
-            // status = true;
+            status = true;
             res.status(201).json({
               name: user.name,
               email: user.email,
               college: user.college,
               city: user.city,
-            //   status: status,
+              status: status,
             //   authToken: authToken,
             });
         } else {
-            res.status(400)
+            res.status(400);
         }
     } catch (err) {
         let status = false;
