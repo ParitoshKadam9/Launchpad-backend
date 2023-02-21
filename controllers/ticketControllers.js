@@ -3,7 +3,11 @@ const Ticket = require("../modals/TicketModal");
 const User = require("../modals/userModal")
 
 const buyTicket = expressAsyncHandler(async (req, res) => {
-    let { email, ticketname, verif } = req.body;
+    
+    
+    
+    let verif;
+    let { email, ticketname} = req.body;
     if (verif) {
 
         let ticket = await Ticket.findOne({ _id: ticketname })
@@ -22,6 +26,16 @@ const buyTicket = expressAsyncHandler(async (req, res) => {
         res.status(400)
     }
 });
+
+const getAllTickets = async (req, res) => {
+    let data = await Ticket.find({})
+    if (data) {
+        res.status(201).send(data)
+    }
+    else {
+        console.log("BT hai")
+    }
+}
 
 const addTicket = async (req, res) => {
     const { name, amount, time, location, about, id } = req.body;
@@ -59,4 +73,4 @@ const ticketBool = expressAsyncHandler(async (req, res) => {
     }
 })
 
-module.exports = {buyTicket, ticketBool, addTicket}
+module.exports = {buyTicket, ticketBool, addTicket, getAllTickets}
