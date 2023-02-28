@@ -29,6 +29,7 @@ const buyTicket = expressAsyncHandler(async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
   const userId = req.params.userId;
+  console.log(userId);
   const body = orderid + "|" + razorpay_payment_id;
 
   const expectedSignature = crypto
@@ -49,7 +50,7 @@ const buyTicket = expressAsyncHandler(async (req, res) => {
     //   name: ticket.name,
     //   id: userId,
     // });
-    res.send("success");
+    res.redirect("http://localhost:3000/success");
   } else {
     res.status(400);
   }
