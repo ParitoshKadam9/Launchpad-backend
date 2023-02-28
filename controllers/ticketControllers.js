@@ -8,7 +8,7 @@ var crypto = require("crypto");
 var orderid;
 const Orderid = expressAsyncHandler(async (req, res) => {
   const ticketid = req.params.ticketId;
-  let ticket = await Ticket.findOne({ id: ticketid });
+  let ticket = await Ticket.findOne({ _id: ticketid });
   const instance = new Razorpay({
     key_id: "rzp_test_Ef3Hus21Zu9tyy",
     key_secret: "SgkEyuw6RLMfJjS3ms2Y0TgK",
@@ -29,6 +29,7 @@ const buyTicket = expressAsyncHandler(async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
   const userId = req.params.userId;
+  console.log(userId);
   const body = orderid + "|" + razorpay_payment_id;
 
   const expectedSignature = crypto
@@ -38,7 +39,7 @@ const buyTicket = expressAsyncHandler(async (req, res) => {
 
   const verif = expectedSignature === razorpay_signature;
   if (verif) {
-    let ticket = await Ticket.findOne({ id: ticketname });
+    let ticket = await Ticket.findOne({ _id: ticketname });
     console.log(ticket);
     await User.updateOne(
       { _id: userId },
@@ -49,7 +50,7 @@ const buyTicket = expressAsyncHandler(async (req, res) => {
     //   name: ticket.name,
     //   id: userId,
     // });
-    res.send("success");
+    res.redirect("http://localhost:3000/success");
   } else {
     res.status(400);
   }
