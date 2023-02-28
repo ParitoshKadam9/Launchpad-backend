@@ -96,8 +96,4 @@ const getUserdata = async (req, res) => {
   }
 };
 
-}
-
-
-
 module.exports = { createUser, loginUser , getUserdata};
