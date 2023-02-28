@@ -7,6 +7,6 @@ router.route("/attendence/").post(ticketBool);
 router.route("/addTicket").post(addTicket);
 router.route("/getAllTs").get(getAllTickets);
 router.route("/getUserTickets").post(getUserTickets);
-router.route("/getOrderId").get(Orderid);
+router.route("/getOrderId/:ticketId").get(Orderid);
 
 module.exports = router;
