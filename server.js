@@ -11,7 +11,8 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api/tickets", require("./routes/ticketRoutes"));
-app.use("/api/auth",require("./routes/auth"));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/ca", require("./routes/ca"));
 
 app.listen(port,()=>{
     console.log(`app started on port number ${port}`)

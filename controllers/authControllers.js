@@ -1,6 +1,7 @@
 const User = require("../modals/userModal");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const CA = require("../modals/CAModal")
 const { json } = require("express");
 
 // callback function for creating user
@@ -73,5 +74,7 @@ const getUserdata = async (req, res) => {
     }
 
 }
+
+
 
 module.exports = { createUser, loginUser , getUserdata};
