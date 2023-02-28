@@ -73,7 +73,7 @@ const getUserTickets = async (req, res) => {
 const getAllTickets = async (req, res) => {
   let data = await Ticket.find({});
   if (data) {
-    res.status(201).send(data);
+    res.status(200).send(data);
   } else {
     console.log("BT hai");
   }
@@ -113,4 +113,4 @@ const ticketBool = expressAsyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { buyTicket, ticketBool, addTicket, getAllTickets, Orderid };
+module.exports = { buyTicket, ticketBool, addTicket, getAllTickets, Orderid , getUserTickets};

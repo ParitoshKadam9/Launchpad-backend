@@ -55,7 +55,7 @@ const loginUser = async (req, res) => {
         }
         const authToken = jwt.sign(user.email,"!launch@pad@23&/109%bits*hyderabad&!2023@#$");
         success = true;
-        return res.json({ success: success, authToken: authToken });
+        return res.json({ success: success, authToken: authToken, email: email });
     } catch (err) {
         success = false;
         console.log(err);
@@ -63,4 +63,15 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { createUser, loginUser };
+const getUserdata = async (req, res) => {
+    try {    
+    let user = await User.findOne({ email: req.body.email });
+      res.status(200).send(user)
+    }
+    catch (err) {
+        res.send(email)
+    }
+
+}
+
+module.exports = { createUser, loginUser , getUserdata};
